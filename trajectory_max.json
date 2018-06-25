@@ -1,0 +1,11 @@
+{
+  "done": {
+    "script": "lua:contest_done"
+  },
+  "reward": {
+    "script": "lua:reward_by_max_trajectory"
+  },
+  "scripts": [
+    "script_trajectory.lua"
+  ]
+}
