@@ -39,7 +39,7 @@ def make_env(stack=True, scale_rew=True, scenario = 'trajectory_max'): #scenario
     #env = make(game='SonicTheHedgehog-Genesis', state='MarbleZone.Act1', bk2dir='videos', monitordir='logs', scenario=scenario)
     #env = make(game='SonicTheHedgehog-Genesis', state='MarbleZone.Act2', bk2dir='videos', monitordir='logs',scenario=scenario)
     #env = make(game='SonicTheHedgehog-Genesis', state='SpringYardZone.Act1', bk2dir='videos', monitordir='logs',scenario=scenario)
-    env = make(game='SonicTheHedgehog-Genesis', state='StarLightZone.Act3', bk2dir='videos', monitordir='logs',scenario=scenario)
+    env = make(game='SonicTheHedgehog-Genesis', state='LabyrinthZone.Act1', bk2dir='videos', monitordir='logs',scenario=scenario)
 
     env = SonicDiscretizer(env)
     if scale_rew:
