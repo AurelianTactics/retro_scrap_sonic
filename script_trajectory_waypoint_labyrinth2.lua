@@ -276,12 +276,14 @@ function get_total_distance(x,y)
 end
 
 --checks to see if waypoint reached. if so gives reward and sets waypoint to next waypoint
+prev_distance = nil
 current_waypoint = 0
 waypoint_x = waypoint_x_dict[current_waypoint]
 waypoint_y = waypoint_y_dict[current_waypoint]
 waypoint_minibonus = 100/waypoint_length
 function calc_waypoint(data)
     if data.x == waypoint_x and data.y == waypoint_y then
+	prev_distance = nil
 	current_waypoint = current_waypoint + 1
 	if current_waypoint < waypoint_length then
 	    waypoint_x = waypoint_x_dict[current_waypoint]
@@ -296,8 +298,6 @@ end
 
 
 --get reward for getting closer to waypoint, less for further from waypoint
-
-prev_distance = nil
 waypoint_reward_scale = nil
 function reward_by_waypoint()
     frame_count = frame_count + 1
@@ -309,6 +309,9 @@ function reward_by_waypoint()
 
     if prev_distance == nil then
 	prev_distance = math.sqrt((prev_x-waypoint_x)^2 + (prev_y-waypoint_y)^2)
+    end
+
+    if waypoint_reward_scale == nil then
 	local total_distance = get_total_distance(prev_x,prev_y)
 	waypoint_reward_scale = 9000.0/total_distance
     end
@@ -317,6 +320,8 @@ function reward_by_waypoint()
     local distance_reward = (prev_distance - curr_distance)*waypoint_reward_scale
     reward = reward + distance_reward
     prev_distance = curr_distance
+    prev_x = data.x
+    prev_y = data.y
 
     if level_done >= 1 then
 	reward = reward + (1 - clip(frame_count/frame_limit, 0, 1)) * 1000
